@@ -1,27 +1,47 @@
+// server.js
 const express = require('express');
-const app = express();
-const connection = require('./server/db/index'); // or wherever your DB connection is
 const bodyParser = require('body-parser');
+const moodRoutes = require('./routes/moodRoutes');
+const statsRoutes = require('./routes/statsRoutes');
+const config = require('./config');
 
-app.use(bodyParser.json()); // To parse JSON request body
+const app = express();
+app.use(bodyParser.json());
 
-// Root test route
-app.get('/', (req, res) => {
-  res.send('Mood Tracker API is working!');
+const PORT = config.server.port || 3000;
+
+app.use('/api/moods', moodRoutes);
+app.use('/api/stats', statsRoutes);
+
+// Call syncData to start syncing TODO
+// initMoodListener();
+
+let server = app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
-app.post('/mood', (req, res) => {
-  const { mood, date, note } = req.body;
-  const sql = 'INSERT INTO mood_entries (mood, date, note) VALUES (?, ?, ?)';
-  connection.query(sql, [mood, date, note], (err, result) => {
-    if (err) {
-      console.error('Failed to insert mood entry:', err);
-      return res.status(500).json({ error: 'Database error' });
+const exitHandler = () => {
+    if (server) {
+        server.close(() => {
+            console.log('Server closed');
+            process.exit(1);
+        });
+    } else {
+        process.exit(1);
     }
-    res.status(201).json({ message: 'Mood entry added successfully!' });
-  });
-});
+};
 
-app.listen(4000, () => {
-  console.log('server running on port 4000');
+const unexpectedErrorHandler = (error) => {
+    console.error(error);
+    exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+    console.info('SIGTERM received');
+    if (server) {
+        server.close();
+    }
 });
