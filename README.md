@@ -17,7 +17,7 @@ This is a Node.js project for mood tracking application.
 
 ```bash
 git clone https://github.com/riya2001r/MoodTracking.git
-cd api-docs
+cd MoodTracking
 cp .env.example .env
 npm install
 ```
