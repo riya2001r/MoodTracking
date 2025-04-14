@@ -8,10 +8,7 @@ exports.addMood = async (req, res) => {
         timestamp = new Date()
     }
     try {
-        await mysqlDb.execute(
-            'INSERT INTO moods (user_id, mood, note, timestamp) VALUES (?, ?, ?, ?)',
-            [userId, mood, note, timestamp]
-        );
+        await mysqlDb.execute('INSERT INTO moods (user_id, mood, note, timestamp) VALUES (?, ?, ?, ?)', [userId, mood, note, timestamp]);
         res.status(201).json({message: 'Mood added!'});
     } catch (err) {
         console.error(err);
@@ -28,10 +25,7 @@ exports.updateMoodNote = async (req, res) => {
     }
 
     try {
-        const [result] = await mysqlDb.execute(
-            'UPDATE moods SET note = ? WHERE id = ?',
-            [note, id]
-        );
+        const [result] = await mysqlDb.execute('UPDATE moods SET note = ? WHERE id = ?', [note, id]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({error: 'Mood record not found.'});
@@ -49,7 +43,7 @@ exports.getMoods = async (req, res) => {
     const {userId} = req.params;
 
     try {
-        const [rows] = await mysqlDb.execute('SELECT * FROM moods WHERE user_id = ?', [userId]);
+        const [rows] = await mysqlDb.execute('SELECT *, DATE(timestamp) as date FROM moods WHERE user_id = ?', [userId]);
         res.status(200).json(rows);
     } catch (error) {
         res.status(500).send('Error retrieving moods');
@@ -74,14 +68,12 @@ exports.getMoodsByFilter = async (req, res) => {
     const endDateToUse = endDate || currentDate;
 
     try {
-        const [rows] = await mysqlDb.query(
-            `SELECT *
-             FROM moods
-             WHERE user_id = ?
-               AND DATE(timestamp) BETWEEN ? AND ?
-             ORDER BY timestamp DESC`,
-            [userId, startDate, endDateToUse]
-        );
+        const [rows] = await mysqlDb.query(`SELECT *,
+                                                   DATE(timestamp) as date
+                                            FROM moods
+                                            WHERE user_id = ?
+                                              AND DATE(timestamp) BETWEEN ? AND ?
+                                            ORDER BY timestamp DESC`, [userId, startDate, endDateToUse]);
 
         res.json(rows);
     } catch (err) {
