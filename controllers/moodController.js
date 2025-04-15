@@ -69,11 +69,12 @@ exports.getMoodsByFilter = async (req, res) => {
 
     try {
         const [rows] = await mysqlDb.query(`SELECT *,
-                                                   DATE(timestamp) as date
+                                                   DATE_FORMAT(timestamp, '%Y-%m-%d') as date
                                             FROM moods
                                             WHERE user_id = ?
                                               AND DATE(timestamp) BETWEEN ? AND ?
-                                            ORDER BY timestamp DESC`, [userId, startDate, endDateToUse]);
+                                            ORDER BY timestamp DESC
+        `, [userId, startDate, endDateToUse]);
 
         res.json(rows);
     } catch (err) {

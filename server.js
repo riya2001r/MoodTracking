@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const moodRoutes = require('./routes/moodRoutes');
 const statsRoutes = require('./routes/statsRoutes');
 const config = require('./config');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 const PORT = config.server.port || 3000;
