@@ -7,12 +7,16 @@ exports.addMood = async (req, res) => {
     if (!timestamp) {
         timestamp = new Date()
     }
+    if (!userId || !mood) {
+        res.status(400).send({'message': 'Bad Request. Mood and UserId is required'})
+    }
+    mood = mood.toLowerCase();
     try {
         await mysqlDb.execute('INSERT INTO moods (user_id, mood, note, timestamp) VALUES (?, ?, ?, ?)', [userId, mood, note, timestamp]);
         res.status(201).json({message: 'Mood added!'});
     } catch (err) {
         console.error(err);
-        res.status(500).json({error: 'Failed to add mood.'});
+        res.status(500).json({error: 'Failed to add mood.', message: err?.message});
     }
 };
 
@@ -34,7 +38,7 @@ exports.updateMoodNote = async (req, res) => {
         res.status(200).json({message: 'Note updated successfully!'});
     } catch (err) {
         console.error(err);
-        res.status(500).json({error: 'Failed to update note.'});
+        res.status(500).json({error: 'Failed to update note.', message: err?.message});
     }
 };
 
@@ -79,7 +83,7 @@ exports.getMoodsByFilter = async (req, res) => {
         res.json(rows);
     } catch (err) {
         console.error(err);
-        res.status(500).json({error: 'Could not filter moods.'});
+        res.status(500).json({error: 'Could not filter moods.', message: err?.message});
     }
 };
 
