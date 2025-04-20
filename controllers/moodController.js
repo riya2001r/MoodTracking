@@ -2,15 +2,28 @@
 const db = require('../firebase/firebase');
 const mysqlDb = require('../db/db');
 
+// Define the supported moods
+const supportedMoods = ['surprise', 'sad', 'neutral', 'happy', 'fear', 'disgust', 'angry'];
+
 exports.addMood = async (req, res) => {
     let {userId, mood, note, timestamp} = req.body;
     if (!timestamp) {
         timestamp = new Date()
     }
     if (!userId || !mood) {
-        res.status(400).send({'message': 'Bad Request. Mood and UserId is required'})
+        return res.status(400).send({'message': 'Bad Request. Mood and UserId is required'})
     }
+
     mood = mood.toLowerCase();
+
+    // Check if the mood is supported
+    if (!supportedMoods.includes(mood.toLowerCase())) {
+        return res.status(400).json({
+            error: 'Invalid mood',
+            message: `Mood must be one of: ${supportedMoods.join(', ')}`
+        });
+    }
+
     try {
         await mysqlDb.execute('INSERT INTO moods (user_id, mood, note, timestamp) VALUES (?, ?, ?, ?)', [userId, mood, note, timestamp]);
         res.status(201).json({message: 'Mood added!'});
@@ -86,6 +99,3 @@ exports.getMoodsByFilter = async (req, res) => {
         res.status(500).json({error: 'Could not filter moods.', message: err?.message});
     }
 };
-
-
-
