@@ -18,7 +18,7 @@ app.use('/api/stats', statsRoutes);
 // Call syncData to start syncing TODO
 // initMoodListener();
 
-let server = app.listen(PORT, () => {
+let server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
