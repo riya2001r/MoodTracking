@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js & npx localtunnel --port 3000 --subdomain moodbuddy-be"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "mysql2": "^3.14.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "localtunnel": "^2.0.2"
   }
 }
