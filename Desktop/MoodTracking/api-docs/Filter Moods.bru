@@ -1,0 +1,17 @@
+meta {
+  name: Filter Moods
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:3000/api/moods/filter?userId=user1&startDate=2025-04-13 19:24:57&endDate=2025-04-15 19:24:57
+  body: none
+  auth: inherit
+}
+
+params:query {
+  userId: user1
+  startDate: 2025-04-13 19:24:57
+  endDate: 2025-04-15 19:24:57
+}

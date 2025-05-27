@@ -1,0 +1,30 @@
+{
+    "sourceFile": "package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1748311923265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1748312923697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n   \"description\": \"This is a Node.js project for mood tracking application.\",\n   \"main\": \"server.js\",\n   \"scripts\": {\n     \"start\": \"node server.js\",\n-    \"dev\": \"nodemon server.js & npx localtunnel --port 3000 --subdomain moodbuddy-be\"\n+    \"dev\": \"nodemon server.js\"\n   },\n   \"keywords\": [],\n   \"author\": \"\",\n   \"license\": \"ISC\",\n@@ -18,8 +18,7 @@\n     \"firebase-admin\": \"^13.2.0\",\n     \"mysql2\": \"^3.14.0\"\n   },\n   \"devDependencies\": {\n-    \"nodemon\": \"^3.1.9\",\n-    \"localtunnel\": \"^2.0.2\"\n+    \"nodemon\": \"^3.1.9\"\n   }\n-}\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1748313149884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n   \"description\": \"This is a Node.js project for mood tracking application.\",\n   \"main\": \"server.js\",\n   \"scripts\": {\n     \"start\": \"node server.js\",\n-    \"dev\": \"nodemon server.js\"\n+    \"dev\": \"nodemon server.js & npx localtunnel --port 3000 --subdomain moodbuddy-be\"\n   },\n   \"keywords\": [],\n   \"author\": \"\",\n   \"license\": \"ISC\",\n@@ -18,7 +18,8 @@\n     \"firebase-admin\": \"^13.2.0\",\n     \"mysql2\": \"^3.14.0\"\n   },\n   \"devDependencies\": {\n-    \"nodemon\": \"^3.1.9\"\n+    \"nodemon\": \"^3.1.9\",\n+    \"localtunnel\": \"^2.0.2\"\n\\ No newline at end of file\n   }\n-}\n+}\n"
+                },
+                {
+                    "date": 1748313331958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,5 +21,5 @@\n   \"devDependencies\": {\n     \"nodemon\": \"^3.1.9\",\n     \"localtunnel\": \"^2.0.2\"\n   }\n-}\n\\ No newline at end of file\n+}\n"
+                }
+            ],
+            "date": 1748311923265,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"moodtracking\",\n  \"version\": \"1.0.0\",\n  \"description\": \"This is a Node.js project for mood tracking application.\",\n  \"main\": \"server.js\",\n  \"scripts\": {\n    \"start\": \"node server.js\",\n    \"dev\": \"nodemon server.js & npx localtunnel --port 3000 --subdomain moodbuddy-be\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"body-parser\": \"^2.2.0\",\n    \"cors\": \"^2.8.5\",\n    \"dotenv\": \"^16.5.0\",\n    \"express\": \"^5.1.0\",\n    \"firebase-admin\": \"^13.2.0\",\n    \"mysql2\": \"^3.14.0\"\n  },\n  \"devDependencies\": {\n    \"nodemon\": \"^3.1.9\",\n    \"localtunnel\": \"^2.0.2\"\n  }\n}\n"
+        }
+    ]
+}

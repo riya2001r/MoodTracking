@@ -1,0 +1,19 @@
+meta {
+  name: Add Mood
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/moods
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "userId": "user1",
+      "mood": "happy",
+      "note": ""
+  }
+}
